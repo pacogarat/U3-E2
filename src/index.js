@@ -1,7 +1,7 @@
-import { StrictMode } from "react";
+import { StrictMode, lazy, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 
-import Contador from "./Contador";
+const Contador = lazy(() => import("./Contador"));
 import { ErrorBoundary } from "./ErrorBoundary.js";
 
 const rootElement = document.getElementById("root");
@@ -10,7 +10,9 @@ const root = createRoot(rootElement);
 root.render(
   <StrictMode>
     <ErrorBoundary>
-      <Contador />
+      <Suspense fallback={<h1>Cargando...</h1>}>
+        <Contador />
+      </Suspense>
     </ErrorBoundary>
   </StrictMode>
 );
