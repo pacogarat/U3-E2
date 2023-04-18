@@ -1,16 +1,8 @@
-import React, { useState } from "react";
-import { ErrorComponent } from "./ErrorComponent";
+import useCatchGlobalError from "./useCatchGlobalError.js";
 
 export const ErrorBoundary = (props) => {
-  const [hasError, setHasError] = useState(false);
+  const error = useCatchGlobalError();
 
-  const componentDidCatch = (error, errorInfo) => {
-    setHasError(true);
-  };
-
-  if (hasError) {
-    // Render error message or1 component
-    return <ErrorComponent />;
-  }
-  return props.children;
+  if (error) return <h1>Ha habido un error que se ha capturado</h1>;
+  return <h1>{props.children}</h1>;
 };
